@@ -1,4 +1,5 @@
 //START-OF-SCRIPT
+@Library('jenkins-pipelines') _
 pipeline {
   angent any {
     stages {
