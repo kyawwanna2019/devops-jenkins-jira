@@ -4,12 +4,12 @@ node {
     def JIRA_PROJ_NAME = 'SKYNET'
     
     def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
-    def REPO_URL = 'https://github.com/kyawwanna2019/hello-world-2.git'
+    def REPO_URL = 'https://github.com/cloudacademy/devops-webapp.git'
     def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
 
     stage('Clone') {        
-        git url: REPO_URL,
-        branch: 'branch2'
+        git url: REPO_URL
+        branch: 'master'
     }
 
     stage('Build') {
