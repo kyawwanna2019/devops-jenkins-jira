@@ -1,7 +1,7 @@
 // Global Libraries
 
 // Tomcat library to deploy / undeploy to tomcat
-tomcat = new com.cb.web.Tomcat(hostname: "localhost", port: "8180", adminUser: "admin", adminPassword: "tomcat")
+tomcat = new com.cb.web.Tomcat(hostname: "54.185.228.143", port: "8080", adminUser: "admin", adminPassword: "admin")
 
 // Simple utility
 util = new com.cb.util.BasicUtilities()
