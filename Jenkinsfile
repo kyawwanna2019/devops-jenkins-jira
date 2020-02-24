@@ -20,6 +20,23 @@ node {
         sh "ls -la build/libs/*.war"
     }
 
+    stage('Test') { 
+    when {
+        expression { 
+            def status = bat(returnStdout: true, script: 'grails test-app my.package.MyTestClass.myTestMethod | findstr BUILD')
+            
+            if(status.contains('BUILD') && status.contains('FAILED'))
+                return true
+               else 
+                return false
+        }
+    }
+    steps{
+        error("TEST FAILED")
+    }
+
+}
+
 //    stage ('Deploy'){
 //    echo 'deployment started'
 //        //bat '''copy C:\\Users\\Madhu\\.jenkins\\workspace\\kelly_pipeline_java_maven\\target\\*.war F:\\softwares\\apache-tomcat-7.0.53\\webapps\\'''
