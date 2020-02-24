@@ -27,18 +27,18 @@ node {
 //        sh "scp -i tomcat-keypair.pem http://localhost:8080/job/BuildJob2/4/execution/node/3/ws/build/libs/*.war ec2-user@ec2-54-185-228-143.us-west-2.compute.amazonaws.com"
 //   }
 
-    stage('Raise JiraIssue') {
-        def issue = [fields: [ project: [key: JIRA_PROJ_NAME],
-                       summary: 'New JIRA Created from Jenkins.',
-                       description: 'New JIRA Created from Jenkins.',
-                       issuetype: [name: 'Task']]]
+    // stage('Raise JiraIssue') {
+    //     def issue = [fields: [ project: [key: JIRA_PROJ_NAME],
+    //                    summary: 'New JIRA Created from Jenkins.',
+    //                    description: 'New JIRA Created from Jenkins.',
+    //                    issuetype: [name: 'Task']]]
         
-        def newIssue = jiraNewIssue issue: issue, site: JIRA_SITE_NAME
+    //     def newIssue = jiraNewIssue issue: issue, site: JIRA_SITE_NAME
         
-        def newIssueId = newIssue.data.key
-        echo newIssueId
+    //     def newIssueId = newIssue.data.key
+    //     echo newIssueId
         
-        def attachment1 = jiraUploadAttachment site: JIRA_SITE_NAME, idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
-    }
+    //     def attachment1 = jiraUploadAttachment site: JIRA_SITE_NAME, idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
+    // }
 }
 //END-OF-SCRIPT
