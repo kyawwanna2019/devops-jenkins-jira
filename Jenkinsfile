@@ -1,3 +1,21 @@
+// Global Libraries
+
+// Tomcat library to deploy / undeploy to tomcat
+tomcat = new com.cb.web.Tomcat(hostname: "localhost", port: "8180", adminUser: "admin", adminPassword: "tomcat")
+
+// Simple utility
+util = new com.cb.util.BasicUtilities()
+
+// Local variables
+artifactName = 'webapp.war'
+artifact = "target/${artifactName}"
+
+// Closures to be executed by tomcat library to deploy/undeploy
+deployClosure = {war, url, id -> sh "curl --upload-file ${war} '${url}?path=/${id}&update=true'"}
+undeployClosure = {url, id -> sh "curl '${url}?path=/${id}'"}
+deployClosure.resolveStrategy = Closure.DELEGATE_FIRST
+undeployClosure.resolveStrategy = Closure.DELEGATE_FIRST
+
 //START-OF-SCRIPT
 node {
     def JIRA_SITE_NAME = 'jira'
@@ -20,22 +38,11 @@ node {
         sh "ls -la build/libs/*.war"
     }
 
-    stage('Test') { 
-    when {
-        expression { 
-            def status = bat(returnStdout: true, script: 'grails test-app my.package.MyTestClass.myTestMethod | findstr BUILD')
-            
-            if(status.contains('BUILD') && status.contains('FAILED'))
-                return true
-               else 
-                return false
+    stage('Deploy') {
+        steps {
+            copyArtifacts(filter: '**/build/libs/*.war', flatten: true, projectName: 'MyProject', target: 'C:/www/MyProject', selector: specific('${BUILD_NUMBER}'))
         }
     }
-    steps{
-        error("TEST FAILED")
-    }
-
-}
 
 //    stage ('Deploy'){
 //    echo 'deployment started'
