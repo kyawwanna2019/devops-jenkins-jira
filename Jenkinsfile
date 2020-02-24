@@ -20,7 +20,7 @@ node {
         sh "ls -la build/libs/*.war"
     }
 
-   stage ('deploy'){
+   stage ('Deploy'){
    echo 'deployment started'
        //bat '''copy C:\\Users\\Madhu\\.jenkins\\workspace\\kelly_pipeline_java_maven\\target\\*.war F:\\softwares\\apache-tomcat-7.0.53\\webapps\\'''
        //sh "scp -o ScrictHostKeyChecking=no target/*.war ec2-user@ec2-54-185-228-143.us-west-2.compute.amazonaws.com"
