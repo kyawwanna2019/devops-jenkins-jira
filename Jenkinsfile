@@ -1,20 +1,3 @@
-// Global Libraries
-
-// Tomcat library to deploy / undeploy to tomcat
-tomcat = new com.cb.web.Tomcat(hostname: "54.185.228.143", port: "8080", adminUser: "admin", adminPassword: "admin")
-
-// Simple utility
-util = new com.cb.util.BasicUtilities()
-
-// Local variables
-artifactName = 'webapp.war'
-artifact = "target/${artifactName}"
-
-// Closures to be executed by tomcat library to deploy/undeploy
-deployClosure = {war, url, id -> sh "curl --upload-file ${war} '${url}?path=/${id}&update=true'"}
-undeployClosure = {url, id -> sh "curl '${url}?path=/${id}'"}
-deployClosure.resolveStrategy = Closure.DELEGATE_FIRST
-undeployClosure.resolveStrategy = Closure.DELEGATE_FIRST
 
 //START-OF-SCRIPT
 node {
