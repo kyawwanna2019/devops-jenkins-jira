@@ -33,7 +33,7 @@ node {
             //sh "scp -o ScrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-54-244-200-137.us-west-2.compute.amazonaws.com"
             //sshPublisher(publishers: [sshPublisherDesc(configName: 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'apt-get update', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user/Tomcat/webapps/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'build/libs/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 
-CURL_RESPONSE=$(curl -v -u $TOMCAT_USER:$TOMCAT_PASSWORD -T $WAR_PATH "http://$TOMCAT_HOST:$TOMCAT_PORT/manager/text/deploy?path=/$CONTEXT_NAME&update=true")    
+CURL_RESPONSE=$(curl -v -u ${TOMCAT_USER}:${TOMCAT_PASSWORD} -T $WAR_PATH "http://$TOMCAT_HOST:$TOMCAT_PORT/manager/text/deploy?path=/$CONTEXT_NAME&update=true")    
 
 if [[ $CURL_RESPONSE == *"FAIL"* ]]; then
   echo "war deployment failed"
