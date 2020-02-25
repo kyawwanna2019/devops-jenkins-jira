@@ -8,6 +8,13 @@ node {
     def REPO_URL = 'https://github.com/cloudacademy/devops-webapp.git'
     def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
 
+    def TOMCAT_USER = 'admin'
+    def TOMCAT_PASSWORD = 'admin'
+    def WAR_PATH = 'build/libs/*.war'
+    def TOMCAT_HOST = 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com'
+    def TOMCAT_PORT = '8080'
+    def CONTEXT_NAME = 'webapp'
+
     /* Test for Tomcat Deployment */
     def mvnHome
 
@@ -18,13 +25,24 @@ node {
 
     stage('Build') {
         sh "${GRADLE_HOME}/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
-        sh "ls -la build/libs/*.war"
+        sh "ls -la ${WAR_PATH}"
     }
 
     stage('Deploy') {
             //copyArtifacts(filter: '**/build/libs/*.war', flatten: true, projectName: 'MyProject', target: 'C:/www/MyProject', selector: specific('${BUILD_NUMBER}'))
             //sh "scp -o ScrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-54-244-200-137.us-west-2.compute.amazonaws.com"
-            sshPublisher(publishers: [sshPublisherDesc(configName: 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'apt-get update', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user/Tomcat/webapps/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'build/libs/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            //sshPublisher(publishers: [sshPublisherDesc(configName: 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'apt-get update', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user/Tomcat/webapps/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'build/libs/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+
+CURL_RESPONSE=$(curl -v -u $TOMCAT_USER:$TOMCAT_PASSWORD -T $WAR_PATH "http://$TOMCAT_HOST:$TOMCAT_PORT/manager/text/deploy?path=/$CONTEXT_NAME&update=true")    
+
+if [[ $CURL_RESPONSE == *"FAIL"* ]]; then
+  echo "war deployment failed"
+  exit 1
+else    
+  echo "war deployed successfully "
+  exit 0
+fi
+
     }
 
 //    stage ('Deploy'){
