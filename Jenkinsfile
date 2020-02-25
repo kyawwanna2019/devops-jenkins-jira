@@ -23,7 +23,7 @@ node {
 
     stage('Deploy') {
             //copyArtifacts(filter: '**/build/libs/*.war', flatten: true, projectName: 'MyProject', target: 'C:/www/MyProject', selector: specific('${BUILD_NUMBER}'))
-            sh "scp -o ScrictHostKeyChecking=no target/*.war ec2-user@ec2-54-244-200-137.us-west-2.compute.amazonaws.com"
+            sh "scp -o ScrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-54-244-200-137.us-west-2.compute.amazonaws.com"
     }
 
 //    stage ('Deploy'){
