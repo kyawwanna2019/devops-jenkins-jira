@@ -41,7 +41,7 @@ node {
             //mavenSettingsConfig: 'my-maven-settings') {
 
         // Run the maven build
-        sh "mvn clean install package"
+        sh 'mvn -B clean package'
 
         } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe & FindBugs & SpotBugs reports...
     }
