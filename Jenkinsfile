@@ -5,15 +5,14 @@ node {
     def JIRA_PROJ_NAME = 'SKYNET'
     
     def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
-    def REPO_URL = 'https://github.com/cloudacademy/devops-webapp.git'
+    def REPO_URL = 'https://github.com/kyawwanna2019/hello-world-2.git'
     def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
 
     def TOMCAT_USER = 'admin'
     def TOMCAT_PASSWORD = 'admin'
     def WAR_PATH = 'build/libs/*.war'
-    def TOMCAT_HOST = 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com'
+    def TOMCAT_HOST = '34.210.99.226'
     def TOMCAT_PORT = '8080'
-    def CONTEXT_NAME = 'webapp'
 
     /* Test for Tomcat Deployment */
     def mvnHome
@@ -28,14 +27,18 @@ node {
         sh "ls -la ${WAR_PATH}"
     }
 
-    stage('Deploy') {
+    stage('Deploy to Tomcat'){
+      
+      sshagent(['tomcat-dev']) {
+         sh 'scp -o ScrictHostKeyChecking=no target/*.war ec2-user@ec2-34-210-99-226.us-west-2.compute.amazonaws.com:/home/ec2-user/Tomcat/webapps/'
+      }
+    }
+    //stage('Deploy') {
             //copyArtifacts(filter: '**/build/libs/*.war', flatten: true, projectName: 'MyProject', target: 'C:/www/MyProject', selector: specific('${BUILD_NUMBER}'))
             //sh "scp -o ScrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-54-244-200-137.us-west-2.compute.amazonaws.com"
             //sshPublisher(publishers: [sshPublisherDesc(configName: 'ec2-54-244-200-137.us-west-2.compute.amazonaws.com', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'apt-get update', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ec2-user/Tomcat/webapps/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'build/libs/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
 
-
-
-    }
+    //}
 
 //    stage ('Deploy'){
 //    echo 'deployment started'
