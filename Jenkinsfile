@@ -1,3 +1,14 @@
+def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
+def REPO_URL = 'https://github.com/kyawwanna2019/hello-world-2.git'
+def REPO_BRANCH = 'branch2'
+def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
+
+def TOMCAT_USER = 'admin'
+def TOMCAT_PASSWORD = 'admin'
+def WAR_PATH = 'webapp/target/*.war'
+def TOMCAT_HOST = '34.210.99.226'
+def TOMCAT_PORT = '8080'
+
 pipeline {
     
     agent any
@@ -6,19 +17,10 @@ pipeline {
         jdk 'JAVA_HOME' 
     }
 
-    def JIRA_SITE_NAME = 'jira'
-    def JIRA_PROJ_NAME = 'SKYNET'
+    // def JIRA_SITE_NAME = 'jira'
+    // def JIRA_PROJ_NAME = 'SKYNET'
     
-    def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
-    def REPO_URL = 'https://github.com/kyawwanna2019/hello-world-2.git'
-    def REPO_BRANCH = 'branch2'
-    def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
-
-    def TOMCAT_USER = 'admin'
-    def TOMCAT_PASSWORD = 'admin'
-    def WAR_PATH = 'webapp/target/*.war'
-    def TOMCAT_HOST = '34.210.99.226'
-    def TOMCAT_PORT = '8080'
+    
 
 
     stages {
