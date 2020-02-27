@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                git branch: 'master', url: "https://github.com/jfrog/project-examples.git"
+                git branch: 'branch', url: "https://github.com/kyawwanna2019/hello-world-2.git"
             }
         }
 
