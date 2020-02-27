@@ -15,12 +15,8 @@ pipeline {
     tools { 
         maven 'M2_HOME' 
         jdk 'JAVA_HOME' 
+        gradle 'gradle-4.10.2'
     }
-
-    // def JIRA_SITE_NAME = 'jira'
-    // def JIRA_PROJ_NAME = 'SKYNET'
-    
-    
 
 
     stages {
@@ -38,7 +34,7 @@ pipeline {
 
         stage ('Build') {
             steps {
-                sh "${GRADLE_HOME}/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
+                sh "gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
                 sh "ls -la ${WAR_PATH}"
             }
         }
