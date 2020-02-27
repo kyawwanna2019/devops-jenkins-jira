@@ -17,21 +17,23 @@ node {
     /* Test for Tomcat Deployment */
     def mvnHome
 
-    stage('Clone') {        
-        git url: REPO_URL
+    // stage('Clone') {        
+    //     git url: REPO_URL
+    //     branch: 'master'
+    // }
+
+//    stage('Build') {
+//         sh "${GRADLE_HOME}/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
+//         sh "ls -la ${WAR_PATH}"
+//     } 
+    stage('Build') {
+        git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         branch: 'master'
+        withMaven( maven: 'maven-3', mavenSettingsConfig: 'Global Maven Settings') { 
+            sh "mvn clean verify"
+        }
     }
-
-    //stage('Build') {
-        //sh "${GRADLE_HOME}/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
-        //sh "ls -la ${WAR_PATH}"
-    //}
-
-    stage('Build') { 
-        //git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        sh 'mvn -B -DskipTests clean package'
-    }
-
+    
     stage('Deploy to Tomcat'){
       sshagent(['tomcat-dev']) {
          sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-34-210-99-226.us-west-2.compute.amazonaws.com:~/Tomcat/webapps'
