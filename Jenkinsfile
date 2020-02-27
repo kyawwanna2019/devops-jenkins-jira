@@ -29,10 +29,7 @@ node {
 
     stage('Build') { 
         //git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-        git url: REPO_URL
-        withMaven(maven: 'M2_HOME') {
-          sh 'mvn -B -DskipTests clean package'
-        }
+        sh 'mvn -B -DskipTests clean package'
     }
 
     stage('Deploy to Tomcat'){
