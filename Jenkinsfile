@@ -29,7 +29,7 @@ node {
 
     stage('Deploy to Tomcat'){
       sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-34-210-99-226.us-west-2.compute.amazonaws.com:/Tomcat'
+         sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-34-210-99-226.us-west-2.compute.amazonaws.com:~/Tomcat'
          //sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@34.210.99.226:/usr/local/tomcat/webapps/'
       }
     }
