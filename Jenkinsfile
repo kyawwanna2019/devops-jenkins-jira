@@ -29,7 +29,7 @@ node {
     stage('Build') {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         branch: 'master'
-        sh "mvn clean verify"
+        sh "mvn clean install package"
         // withMaven( maven: 'maven-3', mavenSettingsConfig: 'eeeb1815-f6dc-4d15-851b-02a985d9e56f') { 
             
         // }
@@ -37,7 +37,7 @@ node {
     
     stage('Deploy to Tomcat'){
       sshagent(['tomcat-dev']) {
-         sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@ec2-34-210-99-226.us-west-2.compute.amazonaws.com:~/Tomcat/webapps'
+         sh 'scp -o StrictHostKeyChecking=no **/*.war ec2-user@34.210.99.226::~/Tomcat/webapps'
          //sh 'scp -o StrictHostKeyChecking=no build/libs/*.war ec2-user@34.210.99.226:/usr/local/tomcat/webapps/'
       }
     }
