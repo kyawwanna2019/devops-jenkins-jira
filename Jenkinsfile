@@ -1,14 +1,3 @@
-def GRADLE_HOME = tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'
-def REPO_URL = 'https://github.com/kyawwanna2019/hello-world-2.git'
-def REPO_BRANCH = 'branch2'
-def DOCKERHUB_REPO = 'kyawwanna/java-webapp'
-
-def TOMCAT_USER = 'admin'
-def TOMCAT_PASSWORD = 'admin'
-def WAR_PATH = 'webapp/target/*.war'
-def TOMCAT_HOST = '34.210.99.226'
-def TOMCAT_PORT = '8080'
-
 pipeline {
     
     agent any
@@ -22,7 +11,7 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                git branch: REPO_BRANCH, url: REPO_URL
+                git branch: 'branch2', url: 'https://github.com/kyawwanna2019/hello-world-2.git'
             }
         }
 
@@ -35,7 +24,7 @@ pipeline {
         stage ('Deploy') {
             steps {
                 sshagent(['tomcat-dev']) {
-                    sh "scp -o StrictHostKeyChecking=no ${WAR_PATH} ec2-user@${TOMCAT_HOST}:~/Tomcat/webapps"
+                    sh "scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@34.210.99.226:~/Tomcat/webapps"
                 }
             }
         }
