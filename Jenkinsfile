@@ -29,7 +29,7 @@ node {
     stage('Build') {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         branch: 'master'
-        withMaven( maven: 'maven-3', mavenSettingsConfig: 'Global Maven Settings') { 
+        withMaven( maven: 'maven-3', mavenSettingsConfig: 'Maven-Global-Config-XML') { 
             sh "mvn clean verify"
         }
     }
