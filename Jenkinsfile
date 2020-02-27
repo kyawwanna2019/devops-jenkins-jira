@@ -26,16 +26,9 @@ pipeline {
             }
         }
 
-        // stage ('Build') {
-        //     steps {
-        //         sh "mvn clean install package"
-        //     }
-        // }
-
         stage ('Build') {
             steps {
-                sh "gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
-                sh "ls -la ${WAR_PATH}"
+                sh "mvn clean install package"
             }
         }
 
