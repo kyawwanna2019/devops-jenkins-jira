@@ -29,9 +29,10 @@ node {
     stage('Build') {
         git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
         branch: 'master'
-        withMaven( maven: 'maven-3', mavenSettingsConfig: 'eeeb1815-f6dc-4d15-851b-02a985d9e56f') { 
-            sh "mvn clean verify"
-        }
+        sh "mvn clean verify"
+        // withMaven( maven: 'maven-3', mavenSettingsConfig: 'eeeb1815-f6dc-4d15-851b-02a985d9e56f') { 
+            
+        // }
     }
     
     stage('Deploy to Tomcat'){
