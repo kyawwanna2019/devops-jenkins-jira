@@ -25,7 +25,7 @@ node {
     stage('Build') {
         //sh "${GRADLE_HOME}/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
         //sh "ls -la ${WAR_PATH}"
-        sh 'mvn -B -DskipTests clean package'
+        sh 'mvn -B -DskipTests clean install package'
         sh "ls -la ${WAR_PATH}"
     }
 
