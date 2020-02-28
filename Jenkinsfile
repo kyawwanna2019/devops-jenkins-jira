@@ -8,7 +8,7 @@ pipeline {
     }
 
     parameters { 
-        string(defaultValue: "https://github.com/kyawwanna2019/hello-world-2.git", description: 'Whats the github URL?', name: 'URL')
+        string(defaultValue: "https://github.com/cloudacademy/devops-webapp.git", description: 'Whats the github URL?', name: 'URL')
     }
 
 
