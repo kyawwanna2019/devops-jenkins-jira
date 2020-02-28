@@ -6,12 +6,17 @@ pipeline {
         jdk 'JAVA_HOME' 
         gradle 'gradle-6.2.1'
     }
+
+    parameters { 
+        string(defaultValue: "https://github.com/kyawwanna2019/hello-world-2.git", description: 'Whats the github URL?', name: 'URL')
+    }
+
+
     
     stages {
         stage ('Clone') {
             steps {
-                git url: 'https://github.com/kyawwanna2019/hello-world-2.git',
-                branch: 'branch3'
+                git branch: 'branch3', url: "${params.URL}"
             }
         }
 
