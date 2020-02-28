@@ -4,7 +4,7 @@ pipeline {
     tools { 
         //maven 'M2_HOME' 
         jdk 'JAVA_HOME' 
-        gradle 'gradle-4.10.2'
+        gradle 'gradle-6.2.1'
     }
     
     stages {
@@ -18,7 +18,7 @@ pipeline {
         stage ('Build') {
             steps {
                 //sh "mvn clean install package"
-                sh "tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'/bin/gradlew clean build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
+                sh "tool name: 'gradle-6.2.1', type: 'hudson.plugins.gradle.GradleInstallation'/bin/gradle clean build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
                 sh "ls -la build/libs/*.war"
             }
         }
