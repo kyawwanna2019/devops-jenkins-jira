@@ -37,7 +37,7 @@ pipeline {
                                 description: 'New JIRA Created from Jenkins.',
                                 issuetype: [name: 'Task']]]
                     
-                    def newIssue = jiraNewIssue issue: issue, site: JIRA_SITE_NAME
+                    def newIssue = jiraNewIssue issue: issue, site: 'Jira'
                     
                     def newIssueId = newIssue.data.key
                     echo newIssueId
