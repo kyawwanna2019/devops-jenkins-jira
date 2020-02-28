@@ -18,7 +18,7 @@ pipeline {
         stage ('Build') {
             steps {
                 //sh "mvn clean install package"
-                sh "tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'/bin/gradle build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
+                sh "tool name: 'gradle-4.10.2', type: 'hudson.plugins.gradle.GradleInstallation'/bin/gradlew clean build --info 2>&1 | tee gradle.build.${BUILD_NUMBER}.log"
                 sh "ls -la build/libs/*.war"
             }
         }
