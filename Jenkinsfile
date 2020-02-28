@@ -8,7 +8,7 @@ pipeline {
     }
 
     parameters { 
-        string(defaultValue: "https://github.com/cloudacademy/devops-webapp.git", description: 'Whats the github URL?', name: 'URL')
+        string(defaultValue: "https://github.com/kyawwanna2019/hello-world-2.git", description: 'Whats the github URL?', name: 'URL')
     }
 
 
@@ -33,7 +33,8 @@ pipeline {
                 script {
                     def sonarqubeScannerHome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
                     withCredentials([string(credentialsId: 'sonar', variable: 'sonarLogin')]) {
-                        sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=hello-world-project -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=hello-world-project -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.java.binaries=build/**/* -Dsonar.language=java"
+                        //sh "${sonarqubeScannerHome}/bin/sonar-scanner -e -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=${sonarLogin} -Dsonar.projectName=hello-world-project -Dsonar.projectVersion=${env.BUILD_NUMBER} -Dsonar.projectKey=hello-world-project -Dsonar.sources=src/main/ -Dsonar.tests=src/test/ -Dsonar.java.binaries=build/**/* -Dsonar.language=java"
+                        sh "mvn sonar:sonar -Dsonar.projectKey=hello-world-project -Dsonar.host.url=http://sonarqube:9000"
                     }
                 }
             }
