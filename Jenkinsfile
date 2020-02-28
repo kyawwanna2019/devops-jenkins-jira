@@ -10,7 +10,8 @@ pipeline {
     stages {
         stage ('Clone') {
             steps {
-                git branch: 'branch3', url: 'https://github.com/kyawwanna2019/hello-world-2.git'
+                git url: 'https://github.com/kyawwanna2019/hello-world-2.git'
+                branch: 'branch3'
             }
         }
 
