@@ -6,8 +6,7 @@ pipeline {
         jdk 'JAVA_HOME' 
         gradle 'gradle-4.10.2'
     }
-
-
+    
     stages {
         stage ('Clone') {
             steps {
@@ -24,13 +23,13 @@ pipeline {
         stage ('Deploy') {
             steps {
                 sshagent(['tomcat-dev']) {
-                    sh "scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@34.210.99.226:~/Tomcat/webapps"
+                    sh "scp -o StrictHostKeyChecking=no webapp/target/*.war ec2-user@18.236.84.72:~/Tomcat/webapps"
                 }
             }
         }
 
         // stage('Raise JiraIssue') {
-        //     def issue = [fields: [ project: [key: JIRA_PROJ_NAME],
+        //     def issue = [fields: [ project: [key: 'SKYNET'],
         //                 summary: 'New JIRA Created from Jenkins.',
         //                 description: 'New JIRA Created from Jenkins.',
         //                 issuetype: [name: 'Task']]]
@@ -40,7 +39,7 @@ pipeline {
         //     def newIssueId = newIssue.data.key
         //     echo newIssueId
             
-        //     def attachment1 = jiraUploadAttachment site: JIRA_SITE_NAME, idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
+        //     def attachment1 = jiraUploadAttachment site: 'jira', idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
         // }
     }
 
