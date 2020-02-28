@@ -50,7 +50,7 @@ pipeline {
                     def newIssueId = newIssue.data.key
                     echo newIssueId
                     
-                    def attachment1 = jiraUploadAttachment site: 'jira', idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
+                    //def attachment1 = jiraUploadAttachment site: 'jira', idOrKey: newIssueId, file: "test.log"
                 }
             }
 
