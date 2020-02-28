@@ -28,19 +28,19 @@ pipeline {
             }
         }
 
-        // stage('Raise JiraIssue') {
-        //     def issue = [fields: [ project: [key: 'SKYNET'],
-        //                 summary: 'New JIRA Created from Jenkins.',
-        //                 description: 'New JIRA Created from Jenkins.',
-        //                 issuetype: [name: 'Task']]]
+        stage('Raise JiraIssue') {
+            def issue = [fields: [ project: [key: 'TPRO'],
+                        summary: 'New JIRA Created from Jenkins.',
+                        description: 'New JIRA Created from Jenkins.',
+                        issuetype: [name: 'Task']]]
             
-        //     def newIssue = jiraNewIssue issue: issue, site: JIRA_SITE_NAME
+            def newIssue = jiraNewIssue issue: issue, site: JIRA_SITE_NAME
             
-        //     def newIssueId = newIssue.data.key
-        //     echo newIssueId
+            def newIssueId = newIssue.data.key
+            echo newIssueId
             
-        //     def attachment1 = jiraUploadAttachment site: 'jira', idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
-        // }
+            def attachment1 = jiraUploadAttachment site: 'jira', idOrKey: newIssueId, file: "gradle.build.${BUILD_NUMBER}.log"
+        }
     }
 
 }
